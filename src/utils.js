@@ -15,3 +15,11 @@ export const arrFromString = (text, divider) => {
   const divide = text.split(divider);
   return divide.map((el, i) => i < divide.length - 1 ? el + divider : el);
 }
+
+export const arrFromDate = (text) => {
+  const re = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/g;
+  const match = text.match(re);
+  return match.map((el, i) => i < match.length - 1
+    ? text.slice(text.indexOf(match[i]), text.indexOf(match[i + 1]))
+    : text.slice(text.indexOf(match[i])))
+}
