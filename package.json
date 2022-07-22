@@ -1,0 +1,27 @@
+{
+  "name": "parse-chat-kata-assignment",
+  "version": "1.0.0",
+  "description": "A TDD Kata  exercise in coding, refactoring and test-first.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patricktabar/parse-chat-kata-assignment.git"
+  },
+  "keywords": [],
+  "author": "Patrick Tabarelli",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/patricktabar/parse-chat-kata-assignment/issues"
+  },
+  "homepage": "https://github.com/patricktabar/parse-chat-kata-assignment#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3"
+  }
+}
