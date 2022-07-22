@@ -14,7 +14,7 @@ const output = [{
 }];
 
 describe('step2 - two sentences', () => {
-  it('should parse a single sentence', () => {
+  it('should parse two sentences divided by new line character', () => {
     expect(parseStep2(input)).toEqual(output);
   })
 })
