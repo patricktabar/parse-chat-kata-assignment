@@ -11,12 +11,22 @@ export const parse = (t) => {
   return res;
 }
 
+export const parseSmart = (t) => {
+  const re_date = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/g;
+  const re_mention = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s.+?\s/g;
+  const mention = t.match(re_mention).join();
+  const date = mention.match(re_date).join();
+  const type = mention.replace(date, '').trim().toLowerCase();
+  const sentence = t.replace(mention, '');
+  return { date, mention, sentence, type }
+}
+
 export const arrFromString = (text, divider) => {
   const divide = text.split(divider);
   return divide.map((el, i) => i < divide.length - 1 ? el + divider : el);
 }
 
-export const arrFromRegExp= (text, re) => {
+export const arrFromRegExp = (text, re) => {
   const match = text.match(re);
   return match.map((el, i) => i < match.length - 1
     ? text.slice(text.indexOf(match[i]), text.indexOf(match[i + 1]))
@@ -30,5 +40,10 @@ export const arrFromDate = (text) => {
 
 export const arrFromDateSmart = (text) => {
   const re = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s.+?\s[:]/g;
+  return arrFromRegExp(text, re);
+}
+
+export const arrFromDateSmartNoColon = (text) => {
+  const re = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s.+?\s/g;
   return arrFromRegExp(text, re);
 }
