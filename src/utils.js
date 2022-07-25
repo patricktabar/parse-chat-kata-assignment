@@ -11,15 +11,48 @@ export const parse = (t) => {
   return res;
 }
 
+export const isRole = (mention) => {
+  if ((/(customer)/gi).test(mention)) return 'customer';
+  if ((/(agent)/gi).test(mention)) return 'agent';
+  return '';
+}
+
 export const parseSmart = (t) => {
   const re_date = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/g;
-  const re_mention = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s.+?\s/g;
-  const mention = t.match(re_mention).join();
-  const date = mention.match(re_date).join();
-  const type = mention.replace(date, '').trim().toLowerCase();
+
+  const re_role = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s(customer|agent)\s/gi;
+  const re_fullname = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s.+?\s.+?\s/g;
+
+  const re_role_colon = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s(customer|agent)\s[:]\s/gi;
+  const re_fullname_colon = /([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\s.+?\s.+?\s[:]\s/g;
+
+  const hasRole = t.match(re_role);
+  const hasColon = t.match(re_role_colon) || t.match(re_fullname_colon);
+
+  let mention;
+
+  if (hasRole) {
+    if (hasColon) {
+      mention = t.match(re_role_colon)[0];
+    } else {
+      mention = t.match(re_role)[0];
+    }
+  } else {
+    if (hasColon) {
+      mention = t.match(re_fullname_colon)[0];
+    } else {
+      mention = t.match(re_fullname)[0];
+    }
+  }
+
+  const date = mention.match(re_date)[0];
+  const type = isRole(mention);
   const sentence = t.replace(mention, '');
+
   return { date, mention, sentence, type }
 }
+
+
 
 export const arrFromString = (text, divider) => {
   const divide = text.split(divider);

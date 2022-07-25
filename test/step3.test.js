@@ -1,31 +1,16 @@
 import parseStep3 from "../src/step3";
-
-const input = '14:24:32 Customer : Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n14:27:00 Customer : Pellentesque cursus maximus felis, pharetra porta purus aliquet viverra.\n14:27:47 Agent : Vestibulum tempor diam eu leo molestie eleifend.\n14:28:28 Customer : Contrary to popular belief, Lorem Ipsum is not simply random text.';
-
-const output = [{
-  date: '14:24:32',
-  mention: '14:24:32 Customer : ',
-  sentence: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n',
-  type: 'customer'
-}, {
-  date: '14:27:00',
-  mention: '14:27:00 Customer : ',
-  sentence: 'Pellentesque cursus maximus felis, pharetra porta purus aliquet viverra.\n',
-  type: 'customer'
-}, {
-  date: '14:27:47',
-  mention: '14:27:47 Agent : ',
-  sentence: 'Vestibulum tempor diam eu leo molestie eleifend.\n',
-  type: 'agent'
-}, {
-  date: '14:28:28',
-  mention: '14:28:28 Customer : ',
-  sentence: 'Contrary to popular belief, Lorem Ipsum is not simply random text.',
-  type: 'customer'
-}];
+import { step1_IO, step2_IO, step3_IO } from "./desiredIO";
 
 describe('step3 - two customer mentions as start', () => {
+  it('should parse a single sentence', () => {
+    expect(parseStep3(step1_IO.input)).toEqual(step1_IO.output);
+  })
+
+  it('should parse two sentences divided by new line character', () => {
+    expect(parseStep3(step2_IO.input)).toEqual(step2_IO.output);
+  })
+
   it('should parse an example with two customer mentions as start', () => {
-    expect(parseStep3(input)).toEqual(output);
+    expect(parseStep3(step3_IO.input)).toEqual(step3_IO.output);
   })
 })

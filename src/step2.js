@@ -5,7 +5,7 @@ import { parse } from "./utils";
 const parseStep2 = (t) => {
   const divider = '\n';
   const divide = t.split(divider);
-  divide[0] += divider;
+  divide.length > 1 ? divide[0] += divider : divide;
 
   return divide.map(el => parse(el));
 }
