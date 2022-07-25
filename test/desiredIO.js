@@ -8,7 +8,6 @@ export const step1_IO = {
   }]
 }
 
-
 export const step2_IO = {
   input: '14:24:32 Customer : Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n14:26:15 Agent : Aliquam non cursus erat, ut blandit lectus.',
   output: [{
@@ -23,7 +22,6 @@ export const step2_IO = {
     type: 'agent'
   }]
 }
-
 
 export const step3_IO = {
   input: '14:24:32 Customer : Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n14:27:00 Customer : Pellentesque cursus maximus felis, pharetra porta purus aliquet viverra.\n14:27:47 Agent : Vestibulum tempor diam eu leo molestie eleifend.\n14:28:28 Customer : Contrary to popular belief, Lorem Ipsum is not simply random text.',

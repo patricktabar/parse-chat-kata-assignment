@@ -2,14 +2,19 @@ export const parse = (t) => {
   const dateLen = 'hh:mm:ss'.length;
   const date = t.slice(0, dateLen);
   const t2 = t.slice(dateLen + 1);
-  const type = t2.slice(0, t2.indexOf(':')).trim().toLowerCase();
   const sentence = t2.slice(t2.indexOf(':') + 2);
   const mention = t.slice(0, t.indexOf(sentence));
+  const type = isRole(mention);
 
-  const res = { date, mention, sentence, type };
-
-  return res;
+  return { date, mention, sentence, type };
 }
+
+export const fillFullnameType = (arr) => arr.map((el, i) => (el.type
+  ? el
+  : i === 0
+    ? { ...el, type: 'customer' }
+    : { ...el, type: 'agent' }))
+
 
 export const isRole = (mention) => {
   if ((/(customer)/gi).test(mention)) return 'customer';
@@ -29,27 +34,27 @@ export const parseSmart = (t) => {
   const hasRole = t.match(re_role);
   const hasColon = t.match(re_role_colon) || t.match(re_fullname_colon);
 
-  let mention;
+  const res = {};
 
   if (hasRole) {
     if (hasColon) {
-      mention = t.match(re_role_colon)[0];
+      res.mention = t.match(re_role_colon)[0];
     } else {
-      mention = t.match(re_role)[0];
+      res.mention = t.match(re_role)[0];
     }
   } else {
     if (hasColon) {
-      mention = t.match(re_fullname_colon)[0];
+      res.mention = t.match(re_fullname_colon)[0];
     } else {
-      mention = t.match(re_fullname)[0];
+      res.mention = t.match(re_fullname)[0];
     }
   }
 
-  const date = mention.match(re_date)[0];
-  const type = isRole(mention);
-  const sentence = t.replace(mention, '');
+  const date = res.mention.match(re_date)[0];
+  const type = isRole(res.mention);
+  const sentence = t.replace(res.mention, '');
 
-  return { date, mention, sentence, type }
+  return { ...res, date, sentence, type }
 }
 
 
